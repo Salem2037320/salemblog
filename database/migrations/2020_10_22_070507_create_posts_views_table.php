@@ -23,15 +23,15 @@ class CreatePostsViewsTable extends Migration
             $table->string("ip");
             $table->string("agent");
 
-            $table->foreignId('user_id')->index()->nullable()->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('user_id')->index()->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 
-            $table->foreignId('post_id')->index()->nullable()->references('id')->on('posts')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('post_id')->index()->references('id')->on('posts')->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamps();
         });
     }
 
-    /**
+    /**§
      * Reverse the migrations.
      *
      * @return void

@@ -4,7 +4,8 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="card mb-3" style="width: 80rem;">
-                <img src="{{ str_contains('http',$element->image) ? $element->image : asset($element->image) }}" class="card-img-top" alt="{{ $element->title }}"
+                <img src="{{ str_contains('http',$element->image) ? $element->image : asset($element->image) }}"
+                     class="card-img-top" alt="{{ $element->title }}"
                      style="max-height: 500px">
                 <div class="card-body">
                     <h5 class="card-title">
@@ -39,9 +40,14 @@
                     <div class="card mb-3 col-lg-12">
                         <div class="card-body">
                             <h5 class="card-title">
-                                <img src="https://ui-avatars.com/api/name={{ $comment->user->name }}&background=0D8ABC&color=fff"
-                                     alt=""/>
-                                {{ $comment->user->name }}
+                                @if($comment->user)
+                                    <img src="https://ui-avatars.com/api/name={{ $comment->user->name }}&background=0D8ABC&color=fff"
+                                         alt=""/>
+                                    {{ $comment->user->name }}
+                                @else
+                                    <img src="https://ui-avatars.com/api/name=User&background=0D8ABC&color=fff"
+                                         alt=""/>
+                                @endif
                                 @if($comment->user_id === auth()->id())
                                     <small class="text-right"> - <a
                                                 href="{{ route('comment.edit', $comment->id) }}">{{ __('general.edit') }}</a>

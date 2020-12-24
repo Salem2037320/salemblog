@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    use HasFactory;
+    use HasFactory,ModelHelpers;
     protected $with = ['views'];
     protected $guarded = [''];
 

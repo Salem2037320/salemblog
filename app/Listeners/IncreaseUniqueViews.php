@@ -4,9 +4,6 @@ namespace App\Listeners;
 
 use App\Events\PostViewed;
 use App\Models\PostsViews;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
-use function PHPUnit\Framework\isNull;
 
 class IncreaseUniqueViews
 {
@@ -23,7 +20,7 @@ class IncreaseUniqueViews
         if ($isViewed) {
             $isViewed->update([
                 'post_id' => $event->currentPost->id,
-                'user_id' => auth()->id(),
+                'user_id' => auth()->id() ?? '1',
                 'url' => request()->url(),
                 'session_id' => request()->getSession()->getId(),
                 'ip' => request()->getClientIp(),
@@ -32,7 +29,7 @@ class IncreaseUniqueViews
         } else {
             PostsViews::create([
                 'post_id' => $event->currentPost->id,
-                'user_id' => auth()->id(),
+                'user_id' => auth()->id() ?? '1',
                 'url' => request()->url(),
                 'session_id' => request()->getSession()->getId(),
                 'ip' => request()->getClientIp(),

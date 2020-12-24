@@ -54,7 +54,7 @@ class PostController extends Controller
                 'image' => str_replace('public/', '', $fileName)
             ]);
         }
-        return redirect()->back()->with('success', __('general.post_updated_successfully'));
+        return redirect()->back()->with('success', __('general.post_created_successfully'));
 
     }
 
@@ -67,7 +67,7 @@ class PostController extends Controller
     public function show($id)
     {
         $element = Post::whereId($id)->with('user', 'views')->with(['comments' => function ($q) {
-            return $q->where(['active' => true])->with('user');
+            return $q->where(['active' => true])->has('user')->with('user');
         }])->first();
         event(new PostViewed($element));
         return view('post.show', compact('element'));
@@ -112,7 +112,7 @@ class PostController extends Controller
                 ]);
             }
         }
-        return redirect()->back()->with('success', __('general.post_created_successfully'));
+        return redirect()->back()->with('success', __('general.post_updated_successfully'));
     }
 
     /**
